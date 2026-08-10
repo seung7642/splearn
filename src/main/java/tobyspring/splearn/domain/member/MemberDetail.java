@@ -1,0 +1,63 @@
+package tobyspring.splearn.domain.member;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.util.Assert;
+import tobyspring.splearn.domain.AbstractEntity;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Getter
+@ToString(callSuper = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class MemberDetail extends AbstractEntity {
+
+    private Profile profile;
+
+    private String introduction;
+
+    private LocalDateTime registeredAt;
+
+    private LocalDateTime activatedAt;
+
+    private LocalDateTime deactivatedAt;
+
+    static MemberDetail create() {
+        MemberDetail memberDetail = new MemberDetail();
+        memberDetail.registeredAt = LocalDateTime.now();
+        return memberDetail;
+    }
+
+    void activate() {
+        Assert.isTrue(activatedAt == null, "Already activated");
+
+        this.activatedAt = LocalDateTime.now();
+    }
+
+    void deactivate() {
+        Assert.isTrue(deactivatedAt == null, "Already deactivated");
+
+        this.deactivatedAt = LocalDateTime.now();
+    }
+
+    void updateInfo(MemberInfoUpdateRequest updateRequest) {
+        this.profile = convertToProfile(updateRequest.profileAddress());
+        this.introduction = updateRequest.introduction();
+    }
+
+    private Profile convertToProfile(@NotNull @Size(max = 15) String profileAddress) {
+        if (profileAddress == null || profileAddress.isEmpty()) {
+            return null;
+        }
+
+        return new Profile(profileAddress);
+    }
+}

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: splearn
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/splearn
+#    username: spring
+#    password: secret
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  docker:
+    compose:
+      lifecycle-management: start_only
