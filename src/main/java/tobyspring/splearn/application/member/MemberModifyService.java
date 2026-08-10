@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import tobyspring.splearn.application.member.provided.MemberFinder;
+import tobyspring.splearn.application.member.provided.MemberInfoUpdateRequest;
 import tobyspring.splearn.application.member.provided.MemberRegister;
-import tobyspring.splearn.domain.member.MemberRegisterRequest;
+import tobyspring.splearn.application.member.provided.MemberRegisterRequest;
 import tobyspring.splearn.application.member.required.EmailSender;
 import tobyspring.splearn.application.member.required.MemberRepository;
 import tobyspring.splearn.domain.member.*;
@@ -27,7 +28,7 @@ public class MemberModifyService implements MemberRegister {
     public Member register(MemberRegisterRequest registerRequest) {
         checkDuplicateEmail(registerRequest);
 
-        Member member = Member.register(registerRequest, passwordEncoder);
+        Member member = Member.register(registerRequest.toInfo(), passwordEncoder);
 
         memberRepository.save(member);
 
@@ -66,7 +67,7 @@ public class MemberModifyService implements MemberRegister {
 
         checkDuplicateProfile(member, memberInfoUpdateRequest.profileAddress());
 
-        member.updateInfo(memberInfoUpdateRequest);
+        member.updateInfo(memberInfoUpdateRequest.toInfo());
 
         return memberRepository.save(member);
     }

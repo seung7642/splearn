@@ -4,7 +4,7 @@ import org.assertj.core.api.AssertProvider;
 import org.assertj.core.api.Assertions;
 import org.springframework.lang.NonNull;
 import org.springframework.test.json.JsonPathValueAssert;
-import tobyspring.splearn.domain.member.MemberRegisterRequest;
+import tobyspring.splearn.application.member.provided.MemberRegisterRequest;
 
 import java.util.function.Consumer;
 

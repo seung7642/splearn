@@ -18,7 +18,7 @@ class MemberTest {
     @BeforeEach
     void setUp() {
         passwordEncoder = createPasswordEncoder();
-        member = Member.register(createMemberRegisterRequest(), passwordEncoder);
+        member = Member.register(createMemberRegisterRequest().toInfo(), passwordEncoder);
     }
 
     @Test
@@ -97,29 +97,29 @@ class MemberTest {
     @Test
     void invalidEmail() {
         assertThatThrownBy(() ->
-                Member.register(createMemberRegisterRequest("invalid email"), passwordEncoder)
+                Member.register(createMemberRegisterRequest("invalid email").toInfo(), passwordEncoder)
         ).isInstanceOf(IllegalArgumentException.class);
 
-        Member.register(createMemberRegisterRequest(), passwordEncoder);
+        Member.register(createMemberRegisterRequest().toInfo(), passwordEncoder);
     }
 
     @Test
     void updateInfo() {
         member.activate();
 
-        var request = new MemberInfoUpdateRequest("Leo", "toby100", "자기소개");
-        member.updateInfo(request);
+        var updateInfo = new MemberInfoUpdateInfo("Leo", "toby100", "자기소개");
+        member.updateInfo(updateInfo);
 
-        assertThat(member.getNickname()).isEqualTo(request.nickname());
-        assertThat(member.getDetail().getProfile().address()).isEqualTo(request.profileAddress());
-        assertThat(member.getDetail().getIntroduction()).isEqualTo(request.introduction());
+        assertThat(member.getNickname()).isEqualTo(updateInfo.nickname());
+        assertThat(member.getDetail().getProfile().address()).isEqualTo(updateInfo.profileAddress());
+        assertThat(member.getDetail().getIntroduction()).isEqualTo(updateInfo.introduction());
     }
 
     @Test
     void updateInfoFail() {
         assertThatThrownBy(() -> {
-            var request = new MemberInfoUpdateRequest("Leo", "toby100", "자기소개");
-            member.updateInfo(request);
+            var updateInfo = new MemberInfoUpdateInfo("Leo", "toby100", "자기소개");
+            member.updateInfo(updateInfo);
         }).isInstanceOf(IllegalStateException.class);
     }
 }
