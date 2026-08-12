@@ -41,4 +41,10 @@ public class MemberFixture {
     public static Member createMember(String email) {
         return Member.register(createMemberRegisterRequest(email).toInfo(), createPasswordEncoder());
     }
+
+    public static Member createActiveMember() {
+        Member member = createMember();
+        member.activate();
+        return member;
+    }
 }
