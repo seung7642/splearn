@@ -14,11 +14,13 @@ class MemberTest {
 
     Member member;
     PasswordEncoder passwordEncoder;
+    MemberRegisterInfo registerInfo;
 
     @BeforeEach
     void setUp() {
         passwordEncoder = createPasswordEncoder();
-        member = Member.register(createMemberRegisterRequest().toInfo(), passwordEncoder);
+        registerInfo = createMemberRegisterRequest().toInfo();
+        member = Member.register(registerInfo, passwordEncoder);
     }
 
     @Test
@@ -70,7 +72,7 @@ class MemberTest {
 
     @Test
     void verifyPassword() {
-        assertThat(member.verifyPassword("verysecret", passwordEncoder)).isEqualTo(true);
+        assertThat(member.verifyPassword(registerInfo.password(), passwordEncoder)).isEqualTo(true);
         assertThat(member.verifyPassword("hello", passwordEncoder)).isEqualTo(false);
     }
 

@@ -29,9 +29,10 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
 
     @Test
     void duplicateEmailFail() {
-        memberRegister.register(MemberFixture.createMemberRegisterRequest());
+        MemberRegisterRequest registerRequest = MemberFixture.createMemberRegisterRequest();
+        memberRegister.register(registerRequest);
 
-        assertThatThrownBy(() -> memberRegister.register(MemberFixture.createMemberRegisterRequest()))
+        assertThatThrownBy(() -> memberRegister.register(registerRequest))
                 .isInstanceOf(DuplicateEmailException.class);
     }
 

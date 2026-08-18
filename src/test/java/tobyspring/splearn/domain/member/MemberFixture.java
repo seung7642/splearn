@@ -1,17 +1,23 @@
 package tobyspring.splearn.domain.member;
 
+import org.instancio.Instancio;
+import org.instancio.Select;
 import org.springframework.lang.NonNull;
 import org.springframework.test.util.ReflectionTestUtils;
 import tobyspring.splearn.application.member.provided.MemberRegisterRequest;
 
+import static org.instancio.Select.*;
+
 public class MemberFixture {
 
     public static @NonNull MemberRegisterRequest createMemberRegisterRequest(String email) {
-        return new MemberRegisterRequest(email, "Charlie", "verysecret");
+        return Instancio.of(MemberRegisterRequest.class)
+                .set(field(MemberRegisterRequest::email), email)
+                .create();
     }
 
     public static @NonNull MemberRegisterRequest createMemberRegisterRequest() {
-        return createMemberRegisterRequest("toby@splearn.app");
+        return createMemberRegisterRequest(Instancio.gen().net().email().get());
     }
 
     public static @NonNull PasswordEncoder createPasswordEncoder() {
