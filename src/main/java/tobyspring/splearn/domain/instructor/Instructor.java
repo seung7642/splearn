@@ -5,11 +5,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.util.Assert;
 import tobyspring.splearn.domain.AbstractEntity;
 import tobyspring.splearn.domain.member.Member;
 
-import static org.springframework.util.Assert.*;
+import static org.springframework.util.Assert.state;
 
 @Entity
 @Getter

@@ -18,6 +18,7 @@ import tobyspring.splearn.application.member.required.MemberRepository;
 import tobyspring.splearn.domain.member.Member;
 import tobyspring.splearn.domain.member.MemberFixture;
 import tobyspring.splearn.application.member.provided.MemberRegisterRequest;
+import tobyspring.splearn.support.stereotype.WebApiTest;
 
 import java.io.UnsupportedEncodingException;
 
@@ -25,9 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static tobyspring.splearn.AssertThatUtils.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@Transactional
+
+@WebApiTest
 @RequiredArgsConstructor
 class MemberApiTest {
 

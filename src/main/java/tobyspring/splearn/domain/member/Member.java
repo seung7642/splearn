@@ -1,6 +1,6 @@
 package tobyspring.splearn.domain.member;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
